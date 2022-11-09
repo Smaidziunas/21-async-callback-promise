@@ -19,6 +19,7 @@ function getPost3() {
   }, 1800);
 }
 
+//callback way
 getPost1(getPost2);
 // getPost2();
 // getPost3();
