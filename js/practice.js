@@ -3,16 +3,23 @@ console.log("practice.js");
 
 const url = "https://jsonplaceholder.typicode.com/posts";
 const url2 = " https://dummyjson.com/posts";
+const btn1El = document.getElementById("btn1");
 
-fetch(url)
-  .then((response) => response.json())
-  .then((duomenysJavascriptFormatu) => {
-    // console.log('duomenysJavascriptFormatu ===', duomenysJavascriptFormatu);
-    const first10posts = duomenysJavascriptFormatu.slice(0, 10);
-    console.log("first10posts ===", first10posts);
-    generateCards(first10posts, "users");
-  })
-  .catch((err) => console.warn("klaida gaunant posts", err));
+btn1El.addEventListener("click", () => {
+  return getPosts(generateCards);
+});
+
+function getPosts(callback) {
+  fetch(url)
+    .then((response) => response.json())
+    .then((duomenysJavascriptFormatu) => {
+      // console.log('duomenysJavascriptFormatu ===', duomenysJavascriptFormatu);
+      const first10posts = duomenysJavascriptFormatu.slice(0, 10);
+      console.log("first10posts ===", first10posts);
+      callback(first10posts);
+    })
+    .catch((err) => console.warn("klaida gaunant posts", err));
+}
 
 /*
   <article class="card">
@@ -21,8 +28,8 @@ fetch(url)
       <p><i>id</i></p>
     </article>
   */
-function generateCards(arr, elId) {
-  const dest = document.getElementById(elId);
+function generateCards(arr) {
+  const dest = document.getElementById("postsCards");
   if (!dest) throw "blogas id";
 
   const htmlElsArr = arr.map((p) => {
