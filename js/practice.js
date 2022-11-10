@@ -50,3 +50,23 @@ fetch(url2)
   .catch((err) => {
     console.warn("klaida gaunant postus", err);
   });
+
+// 8 parasyti funkcija kuria iskvietus su fetch
+
+function getProducts() {
+  const rezInside = fetch("https://dummyjson.com/products")
+    .then((resp) => resp.json)
+    .then((data) => {
+      console.log("data ===", data);
+    })
+    .catch((err) => console.warn("klaida"));
+  return rezInside; // vietoj const rezInside galima is karto rasyti return
+}
+
+const rez = getProducts(); // grizta promise
+console.log(rez); // promise
+
+// pasiimti rezultata is funkcijos kuri grazina promise
+getProducts().then((data) => {
+  console.log("data After Then", data);
+});
